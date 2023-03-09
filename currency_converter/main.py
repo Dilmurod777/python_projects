@@ -12,21 +12,20 @@ def get_rates(curr):
 
         return {'usd': rates['usd']['rate'], 'eur': rates['eur']['rate']}
     except:
-        print('Something went wrong. Please, check your input!')
-        return False
+        raise Exception('Something went wrong. Please, check your input!')
 
 
 cache = {'usd': get_rates('usd'), 'eur': get_rates('eur')}
 
-fromCurr = input()
+fromCurr = input("Enter currency you have (empty to exit): ")
 fromRates = get_rates(fromCurr)
 
 while True:
-    toCurr = input()
+    toCurr = input("Enter currency to convert to (empty to exit): ")
     if toCurr.strip() == '':
         break
 
-    amount = input()
+    amount = input("Enter amount to convert ((empty to exit)): ")
     if amount.strip() == '':
         break
     amount = float(amount)
@@ -41,3 +40,5 @@ while True:
     toRates = cache[toCurr.lower()]
     convAmount = round(amount * fromRates['usd'] / toRates['usd'], 2)
     print(f'You recieved {convAmount} {toCurr}')
+
+print("You successfully exited the program.")
